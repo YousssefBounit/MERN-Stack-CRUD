@@ -1,7 +1,35 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import { useAuthContext } from '../Context/AuthContext';
 
 function Nav() {
+    const {setAuth,auth} = useAuthContext();
+
+    const [message,setMessage] = useState('');
+
+    axios.defaults.withCredentials = true;
+
+    useEffect(()=>{
+        axios.get("http://localhost:8081")
+        .then(res => {
+            if(res.data.Status === "Success"){
+                setAuth(true);
+            }else{
+            setAuth(false);
+            setMessage(res.data.Error);
+            }
+        })
+        .then(err => console.log(err))
+    },[])
+
+    function handleLogout(){
+        axios.get("http://localhost:8081/logout ")
+        .then(res=>{
+            setAuth(false)
+        }).catch(err=>console.log(err));
+    }
+
     return (
     <>
         <nav className="navbar position-absolute navbar-expand-lg bg-body-tertiary nav-bar-backgroud">
@@ -24,12 +52,22 @@ function Nav() {
                         <li className="nav-item">
                             <Link className="nav-link" href="#">Products</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to={'/auth/register'}>Register</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to={'/auth/login'}>Login</Link>
-                        </li>
+                        {
+                            auth?
+                            <li className="nav-item">
+                                <Link className="nav-link btn btn-danger text-light" to={'/auth/login'} onClick={handleLogout}><b>Logout</b></Link>
+                            </li>
+                            :<>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/auth/register'}>Register</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={'/auth/login'}>Login</Link>
+                                </li>
+                            </>
+
+                        }
+                        
                     </ul>
                 </div>
             </div>

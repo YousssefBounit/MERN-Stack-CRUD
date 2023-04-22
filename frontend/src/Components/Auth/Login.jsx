@@ -9,6 +9,8 @@ function Login() {
 
     const navigate = useNavigate();
 
+    axios.defaults.withCredentials = true;
+    
     function handleChange(event){
         const {name,value} = event.target;
         setValues({...values,[name]:value});
@@ -20,7 +22,7 @@ function Login() {
             if(res.data.Status === "Success"){
                 navigate('/');
             }else{
-                alert("Error");
+                alert(res.data.Error); 
             }
         })
         .catch(err => console.log(err))
