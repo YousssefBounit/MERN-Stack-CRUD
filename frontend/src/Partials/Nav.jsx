@@ -36,7 +36,7 @@ function Nav() {
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
                     <img src="https://i.ibb.co/6XMj7s2/js-logo.png" alt="Logo" width="50" height="50" className="d-inline-block align-text-top"/>
-                    <span className='mx-2 h4 position-relative' style={{top:'9.5px'}}>Murn Stack</span>
+                    <span className='mx-2 h4 position-relative' style={{top:'9.5px'}}>Mern Stack</span>
                 </a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
